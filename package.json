@@ -1,0 +1,45 @@
+{
+  "name": "@subspace/jump-consistent-hash",
+  "description": "Jump comsistent hash implementation in TypeScript",
+  "keywords": [
+    "jump",
+    "consistent",
+    "hashing"
+  ],
+  "version": "0.0.1",
+  "homepage": "https://github.com/subspace/jump-consistent-hash",
+  "author": "Nazar Mokrynskyi <nazar@mokrynskyi.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "npm run lint && npm run compile",
+    "compile": "tsc",
+    "lint": "tslint --project .",
+    "start": "node dist/index.js",
+    "test": "npm run lint && ts-node node_modules/.bin/tape tests/**/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/subspace/jump-consistent-hash.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@types/body-parser": "^1.17.0",
+    "@types/express": "^4.16.0",
+    "@types/long": "^4.0.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "long": "^4.0.0",
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.3"
+  },
+  "devDependencies": {
+    "@types/tape": "^4.2.32",
+    "tape": "^4.9.1",
+    "ts-node": "^7.0.1"
+  }
+}
