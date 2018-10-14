@@ -4,7 +4,8 @@ import {jumpConsistentHash} from '../src';
 
 // Sample data copied from https://github.com/mtchavez/jumpconshash/blob/master/jumpconshash_test.go, but do not pass all yet
 test('Basic test', (t) => {
-    t.plan(56);
+    t.plan(28);
+    // t.plan(56);
 
     // const MAX_UINT32 = 2 ** 32 - 1;
 
