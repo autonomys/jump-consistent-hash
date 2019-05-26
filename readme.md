@@ -6,6 +6,8 @@ Read https://arxiv.org/abs/1406.2294 for details, this package works with 64-bit
 npm install @subspace/jump-consistent-hash
 ```
 
+NOTE: Requires Node.js v12+ or modern browser with BigInt support
+
 ## How to use
 TypeScript:
 ```typescript
