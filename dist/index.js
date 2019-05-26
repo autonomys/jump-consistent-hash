@@ -4,12 +4,11 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "long"], factory);
+        define(["require", "exports"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    const Long = require("long");
     /**
      * @param {Uint8Array} key 8 bytes (represents uint64 number)
      * @param {number} numBuckets Up to 32-bit number
@@ -17,17 +16,18 @@
      * @return {number} Bucket from `[0, numBuckets)` range
      */
     function jumpConsistentHash(key, numBuckets) {
-        let keyLong = Long.fromBytes(Array.from(key), true);
-        let b = -1;
-        const OFFSET = Long.fromString('2862933555777941757');
-        const MAX_INT = Math.pow(2, 31);
-        let j = 0;
+        let keyBigInt = Buffer.from(key).readBigUInt64BE();
+        let b = -1n;
+        let j = 0n;
         while (j < numBuckets) {
             b = j;
-            keyLong = keyLong.mul(OFFSET).add(1);
-            j = Math.floor((b + 1) * (MAX_INT / keyLong.shiftRight(33).add(1).toInt()));
+            // We fit the number after multiplication within 64-bit range, just like in C++ implementation from paper
+            keyBigInt = (keyBigInt * 2862933555777941757n) % (2n ** 64n) + 1n;
+            // Here we need to divide numbers as double (like in C++ implementation from paper), hence converting back to numbers for that
+            // tslint:disable-next-line:no-bitwise
+            j = BigInt(Math.floor((Number(b) + 1) * Number(1n << 31n) / Number((keyBigInt >> 33n) + 1n)));
         }
-        return b;
+        return Number(b);
     }
     exports.jumpConsistentHash = jumpConsistentHash;
 });

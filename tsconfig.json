@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "umd",
-    "target": "es6",
+    "target": "esnext",
     "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
@@ -13,11 +13,7 @@
     "outDir": "dist",
     "strict": true,
     "noUnusedParameters": true,
-    "noUnusedLocals": true,
-    "lib": [
-      "es2015",
-      "es2017.object"
-    ]
+    "noUnusedLocals": true
   },
   "include": [
     "src"
