@@ -1,11 +1,31 @@
 /**
+ * Based on Node.js's Buffer implementation: https://github.com/nodejs/node/blob/ed8fc7e11d688cbcdf33d0d149830064758bdcd2/lib/internal/buffer.js#L98
+ * @param bytes
+ */
+function bytesToBigInt(bytes: Uint8Array): bigint {
+    const hi =
+        bytes[0] * 2 ** 24 +
+        bytes[1] * 2 ** 16 +
+        bytes[2] * 2 ** 8 +
+        bytes[3];
+    const lo =
+        bytes[4] * 2 ** 24 +
+        bytes[5] * 2 ** 16 +
+        bytes[6] * 2 ** 8 +
+        bytes[7];
+
+    // tslint:disable-next-line:no-bitwise
+    return (BigInt(hi) << 32n) + BigInt(lo);
+}
+
+/**
  * @param {Uint8Array} key 8 bytes (represents uint64 number)
  * @param {number} numBuckets Up to 32-bit number
  *
  * @return {number} Bucket from `[0, numBuckets)` range
  */
 export function jumpConsistentHash(key: Uint8Array, numBuckets: number): number {
-    let keyBigInt = Buffer.from(key).readBigUInt64BE();
+    let keyBigInt = bytesToBigInt(key);
     let b = -1n;
     let j = 0n;
     while (j < numBuckets) {

@@ -6,7 +6,7 @@
     "consistent",
     "hashing"
   ],
-  "version": "1.0.0",
+  "version": "1.1.0",
   "homepage": "https://github.com/subspace/jump-consistent-hash",
   "author": "Nazar Mokrynskyi <nazar@mokrynskyi.com>",
   "license": "MIT",
